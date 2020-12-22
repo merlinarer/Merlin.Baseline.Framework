@@ -1,0 +1,49 @@
+MODEL:
+  BACKBONE:
+    NAME: "build_resnet_backbone"
+    DEPTH: "50x"
+    PRETRAIN: True
+    PRETRAIN_PATH: ''
+    LAST_STRIDE: 1
+  HEADS:
+    NUM_CLASSES: 3
+  DEVICE_ID: '("1,2,3")'
+
+INPUT:
+  SIZE_TRAIN: [512, 512]
+  SIZE_TEST: [512, 512]
+
+DATA:
+  ROOT: '/home/workspace/merlin/datadir/powerline/Power_Line_Dataset1/Power_Line_Database/Power_Line_Database/imglist.json'
+
+
+SOLVER:
+  BATCH_SIZE: 48
+  CHECKPOINT_PERIOD: 1
+  EVAL_PERIOD: 1
+  OPTIMIZER_NAME: 'Adam'
+  MAX_EPOCHS: 120
+  BASE_LR: 0.00035
+
+  BIAS_LR_FACTOR: 1.0
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+
+  STEPS: [40, 70]
+  GAMMA: 0.1
+
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 0
+  WARMUP_METHOD: 'linear'
+
+#TEST:
+#  IMS_PER_BATCH: 128
+#  RE_RANKING: 'no'
+#  WEIGHT: "path"
+#  NECK_FEAT: 'after'
+#  FEAT_NORM: 'yes'
+
+OUTPUT_DIR: "output/baseline"
+LOAD_FROM: "output/baseline/epoch_5.pth"
+
+
